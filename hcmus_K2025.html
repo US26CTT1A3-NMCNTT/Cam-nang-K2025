@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cẩm nang K2025 - CTĐT Chính thức 138 TC</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#F5F3FF;--card:#fff;--bd:#DDD6FE;--tx:#1E1B4B;--mu:#6D5FB5;--ac:#7C3AED;--in:#fff;--ok:#059669;--wa:#B45309;--cy:#0E7490;--pk:#BE185D;--rd:#DC2626;--mesh:#A78BFA;--hero:linear-gradient(120deg,#7C3AED,#3B82F6,#06B6D4)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:linear-gradient(160deg,#1B1045,#25135C);--card:rgba(42,26,94,.72);--bd:rgba(196,181,253,.28);--tx:#fff;--mu:#C4B5FD;--in:#14102B;--ok:#34D399;--wa:#FBBF24;--cy:#22D3EE;--pk:#F472B6;--rd:#F87171;--mesh:#C4B5FD}}
+:root[data-theme=dark]{--bg:linear-gradient(160deg,#1B1045,#25135C);--card:rgba(42,26,94,.72);--bd:rgba(196,181,253,.28);--tx:#fff;--mu:#C4B5FD;--in:#14102B;--ok:#34D399;--wa:#FBBF24;--cy:#22D3EE;--pk:#F472B6;--rd:#F87171;--mesh:#C4B5FD}
+*{box-sizing:border-box}body{margin:0;font:500 14px Montserrat,system-ui,sans-serif;color:var(--tx);background:var(--bg);background-attachment:fixed;min-height:100vh}
+#mesh{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.6;-webkit-mask-image:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.12) 25%,#000 95%);mask-image:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,.12) 25%,#000 95%)}
+#mesh line{stroke:var(--mesh);stroke-width:.12;opacity:.55}#mesh circle{fill:var(--mesh)}#mesh .g{filter:drop-shadow(0 0 1px var(--mesh))}
+nav,main,footer{position:relative;z-index:1;max-width:1100px;margin:auto;padding:12px 16px}
+nav{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.lg{font-weight:800;font-size:17px}.lg i{color:var(--mu);font-style:normal}
+.mn{display:flex;gap:4px;background:var(--card);border:1px solid var(--bd);border-radius:99px;padding:4px;overflow-x:auto;max-width:100%}
+.mn a{padding:8px 14px;border-radius:99px;color:var(--mu);text-decoration:none;font-weight:600;white-space:nowrap}.mn a.on{background:var(--ac);color:#fff}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:20px;padding:20px;margin-bottom:16px;backdrop-filter:blur(6px)}
+.hero{background:var(--hero);color:#fff;border:0}.hero .bar{background:rgba(255,255,255,.25)}
+.g{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));margin-bottom:16px}.g>.c{margin:0}.c>.g{margin:12px 0 0}
+h1{font-size:26px;font-weight:800;margin:6px 0 10px}h2{font-size:13px;font-weight:700;color:var(--mu);margin:0 0 10px}h4{margin:8px 0 0}
+.big{font-size:32px;font-weight:800}.big small{font-size:14px;font-weight:500}
+.p{display:inline-block;padding:3px 10px;border-radius:99px;background:#C4B5FD;color:#25135C;font-size:11px;font-weight:700}.p.pk{background:var(--pk);color:#fff}.p.cy{background:var(--cy);color:#fff}
+.ok{color:var(--ok)}.wa{color:var(--wa)}.cy{color:var(--cy)}.rd{color:var(--rd)}small{color:inherit;opacity:.8}
+.bar{height:10px;border-radius:9px;background:rgba(127,127,170,.25);overflow:hidden;margin:8px 0}.bar i{display:block;height:100%;background:linear-gradient(90deg,#34D399,#22D3EE)}
+.cd2{border:1px solid var(--bd);border-radius:16px;padding:14px;position:relative}.cd2 b.r{float:right}
+.rw{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:8px 0;border-top:1px solid var(--bd)}
+.st{display:flex;gap:28px;flex-wrap:wrap;font-size:11px;color:var(--mu)}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:780px}th{font-size:11px;text-align:left;color:var(--mu);padding:10px 8px;background:rgba(127,127,170,.16)}td{padding:8px;border-top:1px solid var(--bd)}tr:hover td{background:rgba(127,127,170,.1)}
+tr.bad td{background:rgba(248,113,113,.14)}
+tr.warn-cd td{background:rgba(245, 158, 11, 0.15)}
+.cd{font-weight:600;color:var(--mu)}.ct{text-align:center}
+input,select,textarea,button{font:inherit;color:var(--tx)}
+input,select,textarea{background:var(--in);border:1px solid var(--bd);border-radius:10px;padding:8px 10px;max-width:100%}
+input:focus,select:focus,textarea:focus,button:focus-visible{outline:2px solid var(--mu);outline-offset:1px}
+.gi{width:76px}.gi.bad{border-color:var(--rd)}
+.s0{color:var(--mu)}.s1{color:var(--cy)}.s2{color:var(--ok)}.s3{color:var(--rd);border-color:var(--rd)}
+.btn{background:var(--ac);color:#fff;border:0;border-radius:99px;padding:9px 16px;font-weight:600;cursor:pointer;text-decoration:none;display:inline-block}.btn.o{background:none;border:1px solid var(--bd);color:var(--tx)}.btn.d{background:var(--rd);color:#fff}.btn.w{background:#fff;color:#25135C}
+.fl{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}footer{text-align:center;color:var(--mu);font-size:12px}
+details{border:1px solid var(--bd);border-radius:14px;padding:10px 12px;margin-top:8px}summary{cursor:pointer;font-weight:600}.rm{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.ch{display:inline-block;margin:3px;padding:6px 10px;border:1px solid var(--bd);border-radius:12px;cursor:grab;font-size:13px}
+.da-drag{border:1px dashed var(--wa);background:rgba(245,158,11,0.05);padding:8px;border-radius:10px;margin-top:10px;font-size:12px;}
+
+/* Thời Khóa Biểu CSS - Cập nhật cho dạng Tiết */
+.tkb-container{overflow-x:auto; margin-top: 15px;}
+.tkb-grid{display:grid;grid-template-columns: 85px repeat(7, minmax(115px, 1fr));gap: 4px;min-width: 800px;}
+.tkb-cell{background:var(--in);border:1px solid var(--bd);border-radius:8px;padding:6px;font-size:11px;min-height:50px;display:flex;flex-direction:column;gap:2px;}
+.tkb-head{font-weight:bold;text-align:center;background:rgba(127,127,170,.16);justify-content:center;align-items:center;}
+.tkb-item{background:var(--ac);color:#fff;padding:4px;border-radius:4px;font-weight:600;font-size:10px;word-break:break-word;cursor:pointer;}
+.tkb-time{font-weight:bold;color:var(--mu);display:flex;align-items:center;justify-content:center;text-align:center;font-size:10px;}
+@media (prefers-reduced-motion:no-preference){.bar i{transition:width .4s}}
+</style></head><body>
+<svg id="mesh" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
+<nav><span class="lg">Cẩm nang <i>K2025</i></span><div class="mn" id="mn"></div><span><a class="btn o" href="#trangchu" id="bl" aria-label="Cảnh báo"></a> <button class="btn o" onclick="setT(document.documentElement.dataset.theme=='dark'?'light':'dark')" aria-label="Đổi giao diện sáng/tối">◐</button></span></nav>
+<main id="app"></main><footer>© Cẩm nang K2025 – Dành cho sinh viên CNTT & MMT (Dữ liệu chuẩn CTĐT 138 TC)</footer>
+
+<script>
+const $=s=>document.querySelector(s),f=x=>x.toFixed(2),ST=["Chưa học","Đang học","Đã xong","Nợ môn"],KH=["Giáo dục đại cương","Cơ sở ngành","Chuyên ngành","Tốt nghiệp / Đồ án"],KT=[56,38,34,10];
+const conv=g=>g>=8.5?["A",4]:g>=7?["B",3]:g>=5.5?["C",2]:g>=4?["D",1]:["F",0],rk=g=>g>=3.6?"Xuất sắc":g>=3.2?"Giỏi":g>=2.5?"Khá":g>=2?"Trung bình":"Dưới trung bình";
+
+const RAW_PLAN_DATA = {
+    "MMT": [
+        { code: 'MTH00021', name: 'Vi tích phân 1', credits: 4, block: 1, type: 'BB', hk: 1 },
+        { code: 'MTH00045', name: 'Toán rời rạc', credits: 4, block: 1, type: 'BB', hk: 1 },
+        { code: 'CSC00004', name: 'Nhập môn công nghệ thông tin', credits: 4, block: 1, type: 'BB', hk: 1 },
+        { code: 'MTH00022', name: 'Vi tích phân 2', credits: 4, block: 1, type: 'BB', hk: 2 },
+        { code: 'MTH00035', name: 'Đại số tuyến tính', credits: 4, block: 1, type: 'BB', hk: 2 },
+        { code: 'BAA00004', name: 'Pháp luật đại cương', credits: 3, block: 1, type: 'BB', hk: 2 },
+        { code: 'MTH00044', name: 'Xác suất thống kê', credits: 4, block: 1, type: 'BB', hk: 3 },
+        { code: 'MTH00050', name: 'Toán học tổ hợp', credits: 4, block: 1, type: 'BB', hk: 3 },
+        { code: 'BAA00101', name: 'Triết học Mác - Lênin', credits: 3, block: 1, type: 'BB', hk: 4 },
+        { code: 'BAA00102', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, block: 1, type: 'BB', hk: 5 },
+        { code: 'BAA00103', name: 'Chủ nghĩa xã hội khoa học', credits: 2, block: 1, type: 'BB', hk: 6 },
+        { code: 'BAA00104', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, block: 1, type: 'BB', hk: 7 },
+        { code: 'BAA00003', name: 'Tư tưởng Hồ Chí Minh', credits: 2, block: 1, type: 'BB', hk: 8 },
+        { code: 'BAA00005', name: 'Kinh tế đại cương', credits: 2, block: 1, type: 'TC', hk: 4 },
+        { code: 'MTH00051', name: 'Toán ứng dụng và thống kê', credits: 4, block: 1, type: 'TC', hk: 4 },
+        { code: 'PHY00001', name: 'Vật lý đại cương 1', credits: 3, block: 1, type: 'TC', hk: 2 },
+        { code: 'PHY00081', name: 'Thực hành Vật lý đại cương', credits: 2, block: 1, type: 'TC', hk: 2 },
+        { code: 'BIO00081', name: 'Thực tập Sinh đại cương 1', credits: 1, block: 1, type: 'TC', hk: 2 },
+        { code: 'ENV00001', name: 'Môi trường đại cương', credits: 2, block: 1, type: 'TC', hk: 5 },
+        { code: 'CSC10012', name: 'Cơ sở lập trình', credits: 4, block: 2, type: 'BB', hk: 1 },
+        { code: 'CSC10004', name: 'Cấu trúc dữ liệu và giải thuật', credits: 4, block: 2, type: 'BB', hk: 2 },
+        { code: 'CSC10003', name: 'Phương pháp lập trình hướng đối tượng', credits: 4, block: 2, type: 'BB', hk: 3 },
+        { code: 'CSC10008', name: 'Mạng máy tính', credits: 4, block: 2, type: 'BB', hk: 3 },
+        { code: 'CSC10014', name: 'Tư duy tính toán', credits: 4, block: 2, type: 'BB', hk: 4 },
+        { code: 'CSC10006', name: 'Cơ sở dữ liệu', credits: 4, block: 2, type: 'BB', hk: 4 },
+        { code: 'CSC10009', name: 'Hệ thống máy tính', credits: 2, block: 2, type: 'BB', hk: 4 },
+        { code: 'CSC10007', name: 'Hệ điều hành', credits: 4, block: 2, type: 'BB', hk: 5 },
+        { code: 'CSC13002', name: 'Nhập môn công nghệ phần mềm', credits: 4, block: 2, type: 'BB', hk: 5 },
+        { code: 'CSC14003', name: 'Cơ sở trí tuệ nhân tạo', credits: 4, block: 2, type: 'BB', hk: 5 },
+        { code: 'CSC11004', name: 'Mạng máy tính nâng cao', credits: 4, block: 3, type: 'TC', hk: 5 },
+        { code: 'CSC15001', name: 'An ninh máy tính', credits: 4, block: 3, type: 'TC', hk: 7 },
+        { code: 'CSC11002', name: 'Hệ thống viễn thông', credits: 4, block: 3, type: 'TC', hk: 6 },
+        { code: 'CSC11003', name: 'Lập trình mạng', credits: 4, block: 3, type: 'TC', hk: 6 },
+        { code: 'CSC11006', name: 'Nhập môn điện toán đám mây', credits: 4, block: 3, type: 'TC', hk: 6 },
+        { code: 'CSC11116', name: 'DevOps nâng cao', credits: 4, block: 3, type: 'TC', hk: 7 },
+        { code: 'CSC11106', name: 'Truyền thông không dây', credits: 4, block: 3, type: 'TC', hk: 8 },
+        { code: 'CSC10107', name: 'Thực tập thực tế', credits: 4, block: 3, type: 'TC', hk: 6 },
+        { code: 'CSC10102', name: 'Kiến tập nghề nghiệp', credits: 2, block: 3, type: 'TC', hk: 6 },
+        { code: 'BAA00021', name: 'Thể dục 1', credits: 2, block: 5, type: 'BB', hk: 1 },
+        { code: 'ADD00031', name: 'Anh văn 1', credits: 3, block: 5, type: 'BB', hk: 1 },
+        { code: 'BAA00022', name: 'Thể dục 2', credits: 2, block: 5, type: 'BB', hk: 2 },
+        { code: 'ADD00032', name: 'Anh văn 2', credits: 3, block: 5, type: 'BB', hk: 2 },
+        { code: 'ADD00033', name: 'Anh văn 3', credits: 3, block: 5, type: 'BB', hk: 3 },
+        { code: 'BAA00030', name: 'Giáo dục quốc phòng - An ninh', credits: 4, block: 5, type: 'BB', hk: 3 },
+        { code: 'ADD00034', name: 'Anh văn 4', credits: 3, block: 5, type: 'BB', hk: 4 }
+    ],
+    "CNTT": [
+        { code: 'MTH00021', name: 'Vi tích phân 1', credits: 4, block: 1, type: 'BB', hk: 1 },
+        { code: 'MTH00045', name: 'Toán rời rạc', credits: 4, block: 1, type: 'BB', hk: 1 },
+        { code: 'CSC00004', name: 'Nhập môn công nghệ thông tin', credits: 4, block: 1, type: 'BB', hk: 1 },
+        { code: 'MTH00022', name: 'Vi tích phân 2', credits: 4, block: 1, type: 'BB', hk: 2 },
+        { code: 'MTH00035', name: 'Đại số tuyến tính', credits: 4, block: 1, type: 'BB', hk: 2 },
+        { code: 'BAA00004', name: 'Pháp luật đại cương', credits: 3, block: 1, type: 'BB', hk: 2 },
+        { code: 'MTH00044', name: 'Xác suất thống kê', credits: 4, block: 1, type: 'BB', hk: 3 },
+        { code: 'MTH00050', name: 'Toán học tổ hợp', credits: 4, block: 1, type: 'BB', hk: 3 },
+        { code: 'BAA00101', name: 'Triết học Mác - Lênin', credits: 3, block: 1, type: 'BB', hk: 4 },
+        { code: 'BAA00102', name: 'Kinh tế chính trị Mác - Lênin', credits: 2, block: 1, type: 'BB', hk: 5 },
+        { code: 'BAA00103', name: 'Chủ nghĩa xã hội khoa học', credits: 2, block: 1, type: 'BB', hk: 6 },
+        { code: 'BAA00104', name: 'Lịch sử Đảng Cộng sản Việt Nam', credits: 2, block: 1, type: 'BB', hk: 7 },
+        { code: 'BAA00003', name: 'Tư tưởng Hồ Chí Minh', credits: 2, block: 1, type: 'BB', hk: 8 },
+        { code: 'BAA00005', name: 'Kinh tế đại cương', credits: 2, block: 1, type: 'TC', hk: 4 },
+        { code: 'MTH00051', name: 'Toán ứng dụng và thống kê', credits: 4, block: 1, type: 'TC', hk: 4 },
+        { code: 'PHY00001', name: 'Vật lý đại cương 1', credits: 3, block: 1, type: 'TC', hk: 2 },
+        { code: 'PHY00081', name: 'Thực hành Vật lý đại cương', credits: 2, block: 1, type: 'TC', hk: 2 },
+        { code: 'BIO00081', name: 'Thực tập Sinh đại cương 1', credits: 1, block: 1, type: 'TC', hk: 2 },
+        { code: 'ENV00001', name: 'Môi trường đại cương', credits: 2, block: 1, type: 'TC', hk: 5 },
+        { code: 'CSC10012', name: 'Cơ sở lập trình', credits: 4, block: 2, type: 'BB', hk: 1 },
+        { code: 'CSC10004', name: 'Cấu trúc dữ liệu và giải thuật', credits: 4, block: 2, type: 'BB', hk: 2 },
+        { code: 'CSC10003', name: 'Phương pháp lập trình hướng đối tượng', credits: 4, block: 2, type: 'BB', hk: 3 },
+        { code: 'CSC10008', name: 'Mạng máy tính', credits: 4, block: 2, type: 'BB', hk: 3 },
+        { code: 'CSC10014', name: 'Tư duy tính toán', credits: 4, block: 2, type: 'BB', hk: 4 },
+        { code: 'CSC10006', name: 'Cơ sở dữ liệu', credits: 4, block: 2, type: 'BB', hk: 4 },
+        { code: 'CSC10009', name: 'Hệ thống máy tính', credits: 2, block: 2, type: 'BB', hk: 4 },
+        { code: 'CSC10007', name: 'Hệ điều hành', credits: 4, block: 2, type: 'BB', hk: 5 },
+        { code: 'CSC13002', name: 'Nhập môn công nghệ phần mềm', credits: 4, block: 2, type: 'BB', hk: 5 },
+        { code: 'CSC14003', name: 'Cơ sở trí tuệ nhân tạo', credits: 4, block: 2, type: 'BB', hk: 5 },
+        { code: 'CSC11004', name: 'Mạng máy tính nâng cao', credits: 4, block: 3, type: 'TC', hk: 5 },
+        { code: 'CSC12002', name: 'Cơ sở dữ liệu nâng cao', credits: 4, block: 3, type: 'TC', hk: 5 },
+        { code: 'CSC12004', name: 'Phân tích thiết kế hệ thống thông tin', credits: 4, block: 3, type: 'TC', hk: 5 },
+        { code: 'CSC14005', name: 'Nhập môn học máy', credits: 4, block: 3, type: 'TC', hk: 6 },
+        { code: 'CSC13008', name: 'Phát triển ứng dụng web', credits: 4, block: 3, type: 'TC', hk: 5 },
+        { code: 'CSC13010', name: 'Thiết kế phần mềm', credits: 4, block: 3, type: 'TC', hk: 6 },
+        { code: 'CSC17104', name: 'Lập trình cho khoa học dữ liệu', credits: 4, block: 3, type: 'TC', hk: 5 },
+        { code: 'CSC12105', name: 'Thương mại điện tử', credits: 4, block: 3, type: 'TC', hk: 6 },
+        { code: 'CSC10102', name: 'Kiến tập nghề nghiệp', credits: 2, block: 3, type: 'TC', hk: 6 },
+        { code: 'BAA00021', name: 'Thể dục 1', credits: 2, block: 5, type: 'BB', hk: 1 },
+        { code: 'ADD00031', name: 'Anh văn 1', credits: 3, block: 5, type: 'BB', hk: 1 },
+        { code: 'BAA00022', name: 'Thể dục 2', credits: 2, block: 5, type: 'BB', hk: 2 },
+        { code: 'ADD00032', name: 'Anh văn 2', credits: 3, block: 5, type: 'BB', hk: 2 },
+        { code: 'ADD00033', name: 'Anh văn 3', credits: 3, block: 5, type: 'BB', hk: 3 },
+        { code: 'BAA00030', name: 'Giáo dục quốc phòng - An ninh', credits: 4, block: 5, type: 'BB', hk: 3 },
+        { code: 'ADD00034', name: 'Anh văn 4', credits: 3, block: 5, type: 'BB', hk: 4 }
+    ]
+};
+
+const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+let PA=ld("k2025p",{p:0,s:0}), LI=ld("k2025l",[]), DC=ld("k2025d",{}), TKB_DATA=ld("k2025_tkb",[]), MAJOR=ld("k2025_major","CNTT");
+
+let C = [];
+function buildC() {
+    let savedGrades = ld("k2025_grades_dict", {
+        "MTH00021": [2, 8.6, 1], "MTH00045": [2, 8.7, 1], "CSC00004": [2, 9.2, 1], "CSC10012": [2, 8.2, 1],
+        "CSC10014": [2, 5.5, 4] 
+    }); 
+    
+    C = RAW_PLAN_DATA[MAJOR].map(item => {
+        let notGPA = (item.block === 5) ? 1 : 0; 
+        let gradeInfo = savedGrades[item.code] || [0, null, item.hk]; 
+        return [item.code, item.name, item.credits, item.type, gradeInfo[2], gradeInfo[0], gradeInfo[1], item.block, notGPA];
+    });
+}
+buildC();
+
+const save=()=>{
+    try{
+        let gradeDict = {};
+        C.forEach(c => gradeDict[c[0]] = [c[5], c[6], c[4]]);
+        sv("k2025_grades_dict", gradeDict);
+    }catch(e){}
+};
+
+function S(){let t=0,d=0,pt=0,gt=0,n=0,k=[0,0,0,0];C.forEach(c=>{if(c[5]==2&&!c[8]&&c[7]<=4){t+=c[2];k[c[7]-1]+=c[2]}if(c[5]==1&&!c[8])d+=c[2];if(c[5]==3)n++;if(c[6]!=null&&!c[8]){gt+=c[2];pt+=conv(c[6])[1]*c[2]}});if(PA.p&&PA.s==2){t+=10;k[3]+=10}return{t,d,n,k,pt,gt,g:gt?pt/gt:0}}
+
+const PAS=[["Khóa luận tốt nghiệp","10 TC · 300 giờ thực hiện"],["Thực tập tốt nghiệp","10 TC · 300 giờ thực hiện"],["Thực tập dự án tốt nghiệp","6 TC + 1 HP bổ trợ 4 TC"]];
+
+// Trang chủ
+function home(){const s=S(),p=s.t/138*100,r=s.g;
+const ck=[["Đủ 138 TC tích lũy",s.t>=138,s.t+"/138"],["Đủ từng khối",s.k.every((v,i)=>v>=KT[i]),s.k.map((v,i)=>v+"/"+KT[i]).join(", ")],["GPA tối thiểu 2.00",r>=2,f(r)],["Chuẩn ngoại ngữ (Bậc 3/6)",1,"Đạt"],["GDTC & GDQP-AN",1,"Đạt"],["Không còn môn nợ",!s.n,s.n+" môn"]],ok=ck.filter(x=>x[1]).length,rem=138-s.gt;
+const fc=[["Xuất sắc",3.6],["Giỏi",3.2],["Khá",2.5],["Trung bình",2]].map(([n,t])=>{let q=(t*138-s.pt)/rem;return`<div class="rw"><span>${n} (từ ${t})</span><b class="${q>4?'rd':'wa'}">${q>4?'Không thể đạt':'cần TB ≥ '+f(Math.max(q,0))}</b></div>`}).join("");
+
+const doAnBlock = `
+    <div class="da-drag">
+        <b>Đồ án / Tốt nghiệp (Khối 4)</b><br>
+        <select onchange="PA.p=+this.value;sv('k2025p',PA);render()" style="width:100%; margin:4px 0; font-size:11px;">
+            <option value="0">-- Kéo thả / Chọn phương án TN --</option>
+            ${PAS.map((x,i)=>`<option value="${i+1}" ${PA.p==i+1?'selected':''}>${x[0]}</option>`).join("")}
+        </select>
+        ${PA.p?`<select onchange="PA.s=+this.value;sv('k2025p',PA);render()" style="width:100%; font-size:11px;">
+            ${["Chưa thực hiện","Đang thực hiện","Đã xong (Cộng 10 TC)"].map((x,j)=>`<option value="${j}"${PA.s==j?' selected':''}>${x}</option>`).join("")}
+        </select>`:''}
+    </div>`;
+
+return`<div class="c hero"><span class="p">Chuyên ngành: ${MAJOR}</span><h1>Thanh Tiến Độ Tích Lũy Toàn Khóa</h1><div class="big">${p.toFixed(1)}%</div><div class="bar"><i style="width:${p}%"></i></div><div class="rw" style="border:0"><span>Đã tích lũy: <b>${s.t} / 138 TC</b></span><span>Còn lại: <b>${138-s.t} TC</b></span></div><a class="btn w" href="#baihoc">Xem bài học</a></div>
+<div class="g"><div class="c"><h2>Tín chỉ tích lũy</h2><div class="big">${s.t} <small>/ 138 TC</small></div><small>Đang học: ${s.d} TC</small></div><div class="c"><h2>GPA (thang 4)</h2><div class="big cy">${f(s.g)}</div><span class="p">${rk(s.g)}</span></div><div class="c"><h2>Nợ môn</h2><div class="big ${s.n?'rd':'ok'}">${s.n}</div><small>${s.n?'Cần học lại':'Không có môn nợ'}</small></div></div>
+<div class="c"><h2>Tiến độ 4 khối kiến thức</h2><div class="g">${KH.map((n,i)=>{let v=s.k[i],q=KT[i];return`<div class="cd2"><span class="p">Khối ${i+1}</span><b class="r">${v}/${q} TC</b><h4>${n}</h4><div class="bar"><i style="width:${v/q*100}%"></i></div><small>Đã đạt ${(v/q*100).toFixed(1)}%</small>${i===3 ? doAnBlock : ''}</div>`}).join("")}</div></div>
+${al()}${nn()}<div class="g"><div class="c"><h2>Checklist tốt nghiệp: ${ok}/6</h2>${ck.map(x=>`<div class="rw"><span>${x[1]?'<b class="ok">✓</b>':'<b class="rd">✕</b>'} ${x[0]}</span><small>${x[2]}</small></div>`).join("")}</div>
+<div class="c"><h2>Dự báo xếp loại tốt nghiệp</h2><div class="rw" style="border:0"><span>GPA hiện tại ${f(r)}</span><span class="p">${rk(r)}</span></div>${fc}<small>Theo quy chế của trường; ngưỡng là giá trị tham khảo.</small></div></div>`}
+
+// Bài học
+let F={q:"",h:"",k:"",s:""};
+const sl=(k,a,o)=>{let b=k=="s"?0:1;return`<select onchange="F.${k}=this.value;tbl()"><option value="">${a}</option>${o.map((x,i)=>`<option value="${i+b}"${String(F[k])===String(i+b)?" selected":""}>${x}</option>`).join("")}</select>`};
+
+function bh(){return`<div class="c"><h1>Quản Lý Học Phần & Điểm Số</h1><div class="st" id="hs"></div></div>
+<div class="c"><h2>Bộ lọc học phần</h2><div class="fl"><input placeholder="Tìm theo mã hoặc tên học phần..." value="${F.q}" oninput="F.q=this.value;tbl()">${sl("h","Tất cả học kỳ",[1,2,3,4,5,6,7,8].map(x=>"HK"+x))}${sl("k","Tất cả khối kiến thức",KH)}${sl("s","Tất cả trạng thái",ST)}</div><p><button class="btn o" onclick="F={q:'',h:'',k:'',s:''};render()">Đặt lại bộ lọc</button></p></div>
+<div class="c"><h2>Nhập điểm hàng loạt</h2><textarea id="bk" rows="3" style="width:100%" placeholder="Mỗi dòng: Mã HP, điểm (dán từ bảng điểm, CSV hoặc Excel)
+MTH00022, 8.5"></textarea><p><button class="btn o" onclick="bulk()">Áp dụng</button> <span id="bm"></span></p></div><div class="c"><div class="rw" style="border:0"><h2>Danh sách học phần</h2><span class="p" id="cnt"></span></div><div class="tw"><table><thead><tr><th>Mã HP<th>Tên học phần<th>Số TC<th>Loại<th>Học kỳ<th>Trạng thái<th>Điểm hệ 10<th>Điểm chữ<th>Điểm hệ 4</tr></thead><tbody id="tb"></tbody></table></div><small>Môn có điểm C hoặc D sẽ được tô <b class="wa">màu cam</b> báo hiệu cần học cải thiện.</small></div>`}
+
+function tbl(){const s=S(),q=F.q.toLowerCase(),r=C.map((c,i)=>[c,i]).filter(([c])=>(!q||(c[0]+c[1]).toLowerCase().includes(q))&&(!F.h||c[4]==F.h)&&(!F.k||c[7]==F.k)&&(F.s===""||c[5]==F.s));
+$('#hs').innerHTML=`<div>ĐÃ TÍCH LŨY<br><b class="big ok">${s.t}/138</b></div><div>ĐANG HỌC<br><b class="big wa">${s.d} TC</b></div><div>GPA (THANG 4)<br><b class="big cy">${f(s.g)}</b></div>${s.n?`<span class="p" style="background:var(--rd);color:#fff;align-self:center">Nợ ${s.n} môn</span>`:""}`;
+$('#cnt').textContent=`Hiển thị ${r.length} / ${C.length} môn`;
+$('#tb').innerHTML=r.map(([c,i])=>{
+    const l=c[6]==null?["--","--"]:conv(c[6]),bad=c[5]==3;
+    const isCD = (c[6] >= 4.0 && c[6] < 7.0); 
+    const trClass = bad ? 'bad' : (isCD ? 'warn-cd' : '');
+    
+    return`<tr class="${trClass}"><td class="cd">${c[0]}<td><b>${c[1]}</b><td class="ct">${c[2]}<td><span class="p ${c[3]=='BB'?'cy':'pk'}">${c[3]}</span><td>HK${c[4]}<td><select class="s${c[5]}" onchange="setS(${i},this.value)" aria-label="Trạng thái">${ST.map((x,j)=>`<option value="${j}"${j==c[5]?' selected':''}>${x}</option>`).join("")}</select><td><input class="gi ${bad?'bad':''}" type="number" min="0" max="10" step=".1" value="${c[6]??''}" placeholder="--" onchange="setG(${i},this.value)" aria-label="Điểm hệ 10"><td class="${isCD?'wa font-bold':''}"><b>${l[0]}</b><td class="cy"><b>${l[1]=="--"?"--":f(l[1])}</b></tr>`}).join("")}
+
+function setG(i,v){const c=C[i];if(v===""||isNaN(+v)){c[6]=null;if(c[5]>1)c[5]=1}else{c[6]=Math.round(Math.min(10,Math.max(0,+v))*10)/10;c[5]=c[6]<4?3:2}save();tbl()}
+function setS(i,v){const c=C[i];c[5]=+v;if(c[5]<2)c[6]=null;save();tbl()}
+
+// Lịch Deadline và Thi
+function lc(){
+    if(LI.length===0){
+        LI=[{m:"Cấu trúc dữ liệu và giải thuật",t:"Nộp bài tập lớn",d:dy(3),k:0,loai:"BT"},{m:"Vi tích phân 2",t:"Thi giữa kỳ",d:dy(11),k:0,loai:"GK"}];
+        sv("k2025l",LI);
+    }
+    const l=LI.map((x,i)=>[x,i]).sort((a,b)=>a[0].d<b[0].d?-1:1);
+    return`<div class="c"><h1>Lịch Deadline & Lịch Thi (Portal)</h1>
+    <div class="fl"><input id="lm" placeholder="Tên môn học"><select id="lt"><option value="GK">Thi giữa kỳ</option><option value="CK">Thi cuối kỳ</option><option value="BT">Nộp bài / Đồ án</option></select><input id="ld" type="date" value="${dy(7)}"><button class="btn" onclick="addT()">Thêm lịch</button></div>
+    <p><button class="btn o" onclick="exportExamJSON()">Xuất Lịch Thi (JSON)</button></p></div>
+    <div class="c" style="padding: 0; overflow: hidden;">
+        <div class="tw">
+            <table>
+                <thead><tr><th>Trạng thái</th><th>Kỳ thi / Loại</th><th>Môn học</th><th>Ngày thi / Hạn chót</th><th>Tình trạng</th></tr></thead>
+                <tbody>
+                ${l.map(([x,i])=>{
+                    const d=dd(x); const c=x.k?'ok':d<0?'rd':d<=7?'wa':'';
+                    return `<tr>
+                        <td><input type="checkbox" ${x.k?'checked':''} onchange="LI[${i}].k=this.checked;sv('k2025l',LI);render()"></td>
+                        <td><span class="p ${x.loai==='CK'?'pk':x.loai==='GK'?'cy':''}">${x.t}</span></td>
+                        <td><b>${x.m}</b></td>
+                        <td>${x.d.split("-").reverse().join("/")}</td>
+                        <td class="${c}"><b>${x.k?'Hoàn thành':d<0?'Quá hạn '+-d+' ngày':'Còn '+d+' ngày'}</b></td>
+                    </tr>`
+                }).join("")||"<tr><td colspan='5' class='ct'>Chưa có lịch thi nào.</td></tr>"}
+                </tbody>
+            </table>
+        </div>
+    </div>`}
+
+function addT(){const m=$('#lm').value.trim();if(!m)return;LI.push({m,t:$('#lt').options[$('#lt').selectedIndex].text,d:$('#ld').value,k:0,loai:$('#lt').value});sv("k2025l",LI);render()}
+function exportExamJSON() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(LI, null, 2));
+    const a = document.createElement('a'); a.href = dataStr; a.download = "LichThi_K2025.json"; a.click();
+}
+
+// Thời khóa biểu (Cập nhật 10 Tiết)
+function tkb(){
+    const days = ["Thứ 2", "Thứ 3", "Thứ 4", "Thứ 5", "Thứ 6", "Thứ 7", "Chủ nhật"];
+    const periods = [
+        ["Tiết 1", "7g30 - 8g20"],
+        ["Tiết 2", "8g20 - 9g10"],
+        ["Tiết 3", "9g10 - 10g00"],
+        ["Tiết 4", "10g10 - 11g00"],
+        ["Tiết 5", "11g00 - 11g50"],
+        ["Tiết 6", "12g40 - 13g30"],
+        ["Tiết 7", "13g30 - 14g20"],
+        ["Tiết 8", "14g20 - 15g10"],
+        ["Tiết 9", "15g20 - 16g10"],
+        ["Tiết 10", "16g10 - 17g00"]
+    ];
+    
+    let gridHTML = `<div class="tkb-grid"><div class="tkb-head">Tiết</div>` + days.map(d=>`<div class="tkb-head">${d}</div>`).join("");
+    
+    for(let t=0; t<10; t++) {
+        // Viền dưới đậm sau tiết 5 để phân chia Sáng/Chiều
+        let borderStyle = t === 4 ? "border-bottom: 2px solid var(--mu);" : "";
+        
+        gridHTML += `<div class="tkb-cell tkb-time" style="${borderStyle}"><span>${periods[t][0]}</span><span style="font-weight:normal;font-size:9px">${periods[t][1]}</span></div>`;
+        for(let d=0; d<7; d++) {
+            const items = TKB_DATA.filter(x => x.day == d && x.time == t);
+            gridHTML += `<div class="tkb-cell" style="${borderStyle}">
+                ${items.map((item, i) => `<div class="tkb-item" onclick="removeTkb(${d},${t},${i})">${item.m} <br><small>${item.room}</small></div>`).join("")}
+            </div>`;
+        }
+    }
+    gridHTML += `</div>`;
+
+    return `<div class="c"><h1>Thời Khóa Biểu</h1>
+        <div class="fl">
+            <input id="tkb_m" placeholder="Môn học (VD: Lập trình)">
+            <input id="tkb_r" placeholder="Phòng (VD: F201)">
+            <select id="tkb_d">${days.map((d,i)=>`<option value="${i}">${d}</option>`).join("")}</select>
+            <select id="tkb_t">${periods.map((t,i)=>`<option value="${i}">${t[0]} (${t[1]})</option>`).join("")}</select>
+            <button class="btn" onclick="addTkb()">Thêm Môn</button>
+        </div>
+        <div style="margin-top:10px;">
+            <button class="btn o" onclick="document.getElementById('file_tkb').click()">Nhập TKB (JSON)</button>
+            <button class="btn o" onclick="exportTkbJSON()">Xuất TKB (JSON)</button>
+            <input type="file" id="file_tkb" style="display:none" onchange="importTkb(event)">
+            <small>Nhấp vào môn trong TKB để xóa.</small>
+        </div>
+    </div>
+    <div class="c" style="padding-top:0"><div class="tkb-container">${gridHTML}</div></div>`;
+}
+
+function addTkb(){
+    const m=$('#tkb_m').value, room=$('#tkb_r').value, day=+$('#tkb_d').value, time=+$('#tkb_t').value;
+    if(!m)return; TKB_DATA.push({m, room, day, time}); sv("k2025_tkb", TKB_DATA); render();
+}
+function removeTkb(d,t,i) {
+    if(confirm("Xóa môn này khỏi TKB?")){
+        const items = TKB_DATA.filter(x => x.day == d && x.time == t);
+        const target = items[i];
+        TKB_DATA = TKB_DATA.filter(x => x !== target);
+        sv("k2025_tkb", TKB_DATA); render();
+    }
+}
+function exportTkbJSON() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(TKB_DATA, null, 2));
+    const a = document.createElement('a'); a.href = dataStr; a.download = "ThoiKhoaBieu_K2025.json"; a.click();
+}
+function importTkb(e) {
+    const file = e.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+        try{ TKB_DATA = JSON.parse(evt.target.result); sv("k2025_tkb", TKB_DATA); render(); alert("Đã nhập TKB thành công!"); }
+        catch(err){ alert("File JSON không hợp lệ!"); }
+    };
+    reader.readAsText(file);
+}
+
+const dy=n=>{const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().slice(0,10)},dd=x=>Math.round((new Date(x.d)-new Date(dy(0)))/864e5);
+const alts=()=>[]; const al=()=>'';
+const nn=()=>`<div class="c"><div class="rw" style="border:0"><h2>Chuẩn đầu ra Ngoại ngữ</h2><span class="p" style="background:var(--ok);color:#fff">✓ Đã đạt</span></div></div>`;
+
+// Cài đặt
+function cd(){return`<div class="c"><h1>Cài đặt & Dữ liệu</h1></div>
+<div class="g">
+    <div class="c"><h2>Chuyên ngành</h2>
+        <select onchange="MAJOR=this.value; sv('k2025_major', MAJOR); buildC(); render()" style="width:100%">
+            <option value="CNTT" ${MAJOR==='CNTT'?'selected':''}>Công nghệ thông tin (CNTT)</option>
+            <option value="MMT" ${MAJOR==='MMT'?'selected':''}>Mạng máy tính & Viễn thông (MMT)</option>
+        </select>
+        <p><small>Hệ thống tự động nạp lại danh sách 138 TC chuẩn cho chuyên ngành được chọn.</small></p>
+    </div>
+    <div class="c"><h2>Giao diện</h2><button class="btn" onclick="setT('dark')">Dark</button> <button class="btn o" onclick="setT('light')">Light</button></div>
+    <div class="c"><h2>Đặt lại dữ liệu</h2><button class="btn d" onclick="if(confirm('Xóa hết dữ liệu?')){localStorage.clear();location.reload()}">Reset toàn bộ</button></div>
+</div>`}
+
+let DG;function mv(h){if(DG!=null){C[DG][4]=h;save();render()}}
+function lt(){return`<div class="c"><h1>Lộ trình học kỳ</h1><small>Kéo thả môn sang học kỳ khác. Khối 4 (Đồ án) đã được đặt gọn tại trang chủ.</small></div><div class="rm">${[1,2,3,4,5,6,7,8].map(h=>{const l=C.filter(c=>c[4]==h),t=l.reduce((a,c)=>a+(c[8]?0:c[2]),0);return`<div class="c" style="margin:0;min-height:120px" ondragover="event.preventDefault()" ondrop="mv(${h})"><h2>HK${h} · <span>${t} TC</span></h2>${l.map(c=>{return`<div class="ch s${c[5]}" draggable="true" ondragstart="DG=${C.indexOf(c)}">${c[1]}</div>`}).join("")}</div>`}).join("")}</div>`}
+function bulk(){}
+
+const V={trangchu:["Trang chủ",home],baihoc:["Bài học",bh],lotrinh:["Lộ trình",lt],lich:["Lịch thi",lc],thoikhoabieu:["Thời khóa biểu",tkb],caidat:["Cài đặt",cd]};
+function render(){let h=location.hash.slice(1);if(!V[h])h="trangchu";$('#mn').innerHTML=Object.keys(V).map(k=>`<a href="#${k}" class="${k==h?'on':''}">${V[k][0]}</a>`).join("");$('#app').innerHTML=V[h][1]();$('#bl').textContent="🔔 "+alts().length;if(h=="baihoc")tbl();}
+function setT(t){document.documentElement.dataset.theme=t;try{localStorage.setItem("k2025t",t)}catch(e){}}
+addEventListener("hashchange",render);
+(()=>{let s=7,r=()=>(s=s*16807%2147483647)/2147483647,P=[...Array(55)].map(()=>[r()*100,r()*100]),h="";P.forEach((p,i)=>{P.map((q,j)=>[j,(p[0]-q[0])**2+(p[1]-q[1])**2]).sort((a,b)=>a[1]-b[1]).slice(1,3).forEach(([j])=>h+=`<line x1="${p[0]}" y1="${p[1]}" x2="${P[j][0]}" y2="${P[j][1]}"/>`);h+=`<circle cx="${p[0]}" cy="${p[1]}" r="${i%7?.35:.8}"${i%7?"":' class="g"'}/>`});$('#mesh').innerHTML=h})();
+try{setT(localStorage.getItem("k2025t")||"dark")}catch(e){}
+render();
+</script></body></html>
