@@ -61,6 +61,15 @@ details{border:1px solid var(--bd);border-radius:14px;padding:10px 12px;margin-t
 </style></head><body>
 <svg id="mesh" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"></svg>
 <nav><span class="lg">Cẩm nang <i>K2025</i></span><div class="mn" id="mn"></div><span><a class="btn o" href="#trangchu" id="bl" aria-label="Cảnh báo"></a> <button class="btn o" onclick="setT(document.documentElement.dataset.theme=='dark'?'light':'dark')" aria-label="Đổi giao diện sáng/tối">◐</button></span></nav>
+
+<div id="storage-warning"
+     role="alert"
+     hidden
+     style="max-width:1068px;margin:8px auto;padding:12px 16px;
+            border:1px solid var(--rd);border-radius:12px;
+            background:var(--card);color:var(--rd);font-weight:600">
+</div>
+
 <main id="app"></main><footer>© Cẩm nang K2025 – Dành cho sinh viên CNTT & MMT (Dữ liệu chuẩn CTĐT 138 TC)</footer>
 
 <!-- DỮ LIỆU MẪU CÓ SẴN: tách khỏi mã xử lý, không bổ sung bản ghi mới. -->
@@ -209,15 +218,235 @@ const RAW_PLAN_DATA = {
     ]
 };
 
-const ld=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))||d}catch(e){return d}},sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+// Hiển thị cảnh báo lưu trữ
+function showStorageWarning(message, allowExport = false) {
+    const banner = document.getElementById("storage-warning");
+    if (!banner) return;
+
+    banner.textContent = message;
+    banner.hidden = false;
+
+    if (allowExport) {
+        const btn = document.createElement("button");
+        btn.textContent = "Xuất dữ liệu hiện tại";
+        btn.className = "btn";
+        btn.style.marginLeft = "12px";
+        btn.onclick = exportRecoveryJSON;
+        banner.appendChild(btn);
+    }
+}
+
+// Kiểm tra quyền ghi, đọc và xóa localStorage
+function checkStorage() {
+    const key = "__k2025_storage_test__" +
+        Date.now() + "_" + Math.random();
+    const value = "storage_ok";
+
+    let ok = false;
+
+    try {
+        localStorage.setItem(key, value);
+        ok = localStorage.getItem(key) === value;
+
+        if (ok) {
+            localStorage.removeItem(key);
+            ok = localStorage.getItem(key) === null;
+        }
+    } catch (e) {
+        ok = false;
+    } finally {
+        try {
+            localStorage.removeItem(key);
+            if (localStorage.getItem(key) !== null) ok = false;
+        } catch (e) {
+            ok = false;
+        }
+    }
+
+    return ok;
+}
+
+// Kiểm tra một lần khi khởi động
+const STORAGE_OK = checkStorage();
+
+// Trạng thái đọc của từng khóa storage
+const STORAGE_STATUS = new Map();
+// Kiểm tra object thông thường
+const isObject = v =>
+    v !== null && typeof v === "object" && !Array.isArray(v);
+
+// Kiểm tra ngày YYYY-MM-DD
+const isDate = v => {
+    if (typeof v !== "string" ||
+        !/^\d{4}-\d{2}-\d{2}$/.test(v)) return false;
+
+    const d = new Date(v + "T00:00:00");
+    return !Number.isNaN(d.getTime()) &&
+        d.toISOString().slice(0, 10) === v;
+};
+
+// Schema cho từng khóa storage
+const STORAGE_SCHEMA = {
+    k2025p: v =>
+        isObject(v) &&
+        Number.isInteger(v.p) && v.p >= 0 &&
+        Number.isInteger(v.s) && v.s >= 0 && v.s <= 2,
+
+    k2025l: v =>
+        Array.isArray(v) && v.every(x =>
+            isObject(x) &&
+            typeof x.m === "string" &&
+            typeof x.t === "string" &&
+            isDate(x.d) &&
+            (x.k === 0 || x.k === 1 ||
+             typeof x.k === "boolean") &&
+            ["GK", "CK", "BT"].includes(x.loai)
+        ),
+
+    k2025d: v => isObject(v),
+
+    k2025_tkb: v =>
+        Array.isArray(v) && v.every(x =>
+            isObject(x) &&
+            typeof x.m === "string" &&
+            typeof x.room === "string" &&
+            Number.isInteger(x.day) && x.day >= 0 && x.day <= 6 &&
+            Number.isInteger(x.time) && x.time >= 0 && x.time <= 9
+        ),
+
+    k2025_major: v =>
+        v === "CNTT" || v === "MMT",
+
+    k2025_grades_dict: v =>
+        isObject(v) &&
+        Object.values(v).every(x =>
+            Array.isArray(x) &&
+            x.length === 3 &&
+            Number.isInteger(x[0]) && x[0] >= 0 && x[0] <= 3 &&
+            (x[1] === null ||
+                (typeof x[1] === "number" &&
+                 Number.isFinite(x[1]) &&
+                 x[1] >= 0 && x[1] <= 10)) &&
+            Number.isInteger(x[2]) && x[2] >= 1 && x[2] <= 8
+        )
+};
+// Đọc dữ liệu và phân loại trạng thái
+const ld = (k, d) => {
+    let raw;
+
+    try {
+        raw = localStorage.getItem(k);
+    } catch (e) {
+        STORAGE_STATUS.set(k, "unavailable");
+
+        showStorageWarning(
+            "Không thể truy cập dữ liệu '" + k +
+            "'. Đang dùng dữ liệu mặc định; thao tác lưu đã bị khóa."
+        );
+
+        return d;
+    }
+
+    if (raw === null) {
+        STORAGE_STATUS.set(k, "missing");
+        return d;
+    }
+
+    let data;
+
+    try {
+        data = JSON.parse(raw);
+    } catch (e) {
+        STORAGE_STATUS.set(k, "corrupt");
+
+        showStorageWarning(
+            "Dữ liệu '" + k +
+            "' bị lỗi JSON. Đang dùng dữ liệu mặc định; " +
+            "không cho phép ghi đè dữ liệu cũ."
+        );
+
+        return d;
+    }
+
+    // Kiểm tra cấu trúc sau JSON.parse()
+    const validate = STORAGE_SCHEMA[k];
+
+    if (validate && !validate(data)) {
+        STORAGE_STATUS.set(k, "invalid");
+
+        showStorageWarning(
+            "Dữ liệu '" + k +
+            "' không đúng cấu trúc yêu cầu. " +
+            "Đang dùng dữ liệu mặc định; thao tác lưu đã bị khóa."
+        );
+
+        return d;
+    }
+
+    STORAGE_STATUS.set(k, "valid");
+    return data;
+};
+
+// Ghi dữ liệu
+const sv = (k, v) => {
+    if (!STORAGE_OK) {
+        showStorageWarning(
+            "Bộ nhớ cục bộ không hoạt động. " +
+            "Dữ liệu hiện tại vẫn được giữ trong phiên này.",
+            true
+        );
+        return false;
+    }
+
+    const status = STORAGE_STATUS.get(k);
+
+    if (
+        status === "corrupt" ||
+        status === "unavailable" ||
+        status === "invalid"
+    ) {
+        showStorageWarning(
+            "Không thể lưu '" + k + "' do trạng thái đọc: " +
+            status + ". Dữ liệu hiện tại vẫn được giữ trong RAM.",
+            true
+        );
+        return false;
+    }
+
+    try {
+        const raw = JSON.stringify(v);
+
+        if (raw === undefined) {
+            throw new Error("Dữ liệu không thể chuyển thành JSON");
+        }
+
+        localStorage.setItem(k, raw);
+
+        if (localStorage.getItem(k) !== raw) {
+            throw new Error("Xác minh dữ liệu ghi thất bại");
+        }
+
+        STORAGE_STATUS.set(k, "valid");
+        return true;
+
+    } catch (e) {
+        STORAGE_STATUS.set(k, "write-failed");
+
+        showStorageWarning(
+            "Lưu '" + k + "' thất bại: " + e.message +
+            ". Dữ liệu hiện tại vẫn được giữ trong RAM.",
+            true
+        );
+
+        return false;
+    }
+};
+
 let PA=ld("k2025p",{p:0,s:0}), LI=ld("k2025l",[]), DC=ld("k2025d",{}), TKB_DATA=ld("k2025_tkb",[]), MAJOR=ld("k2025_major","CNTT");
 
 let C = [];
 function buildC() {
     let savedGrades = ld("k2025_grades_dict", SAMPLE_DATA.grades); 
-																										   
-								
-		
     
     C = RAW_PLAN_DATA[MAJOR].map(item => {
         let notGPA = (item.block === 5) ? 1 : 0; 
@@ -227,12 +456,21 @@ function buildC() {
 }
 buildC();
 
-const save=()=>{
-    try{
-        let gradeDict = {};
-        C.forEach(c => gradeDict[c[0]] = [c[5], c[6], c[4]]);
-        sv("k2025_grades_dict", gradeDict);
-    }catch(e){}
+const save = () => {
+    try {
+        const gradeDict = {};
+
+        C.forEach(c => {
+            gradeDict[c[0]] = [c[5], c[6], c[4]];
+        });
+
+        return sv("k2025_grades_dict", gradeDict);
+    } catch (e) {
+        showStorageWarning(
+            "Không thể chuẩn bị dữ liệu điểm để lưu: " + e.message
+        );
+        return false;
+    }
 };
 
 // ----- CÁC HÀM TÍNH TOÁN HỌC TẬP -----
@@ -500,6 +738,48 @@ function lc(){
         </div>
     </div>`}
 
+// Xuất toàn bộ dữ liệu hiện tại để cứu hộ
+function exportRecoveryJSON() {
+    try {
+        const grades = {};
+        C.forEach(c => {
+            grades[c[0]] = [c[5], c[6], c[4]];
+        });
+
+        const backup = {
+            format: "K2025_RECOVERY",
+            version: 1,
+            exportedAt: new Date().toISOString(),
+            data: {
+                k2025p: PA,
+                k2025l: LI,
+                k2025d: DC,
+                k2025_tkb: TKB_DATA,
+                k2025_major: MAJOR,
+                k2025_grades_dict: grades
+            }
+        };
+
+        const blob = new Blob(
+            [JSON.stringify(backup, null, 2)],
+            { type: "application/json" }
+        );
+
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+
+        a.href = url;
+        a.download = "K2025_recovery_" +
+            new Date().toISOString().replace(/[:.]/g, "-") +
+            ".json";
+
+        a.click();
+        URL.revokeObjectURL(url);
+
+    } catch (e) {
+        alert("Không thể xuất dữ liệu cứu hộ: " + e.message);
+    }
+}
 function addT(){const m=$('#lm').value.trim();if(!m)return;LI.push({m,t:$('#lt').options[$('#lt').selectedIndex].text,d:$('#ld').value,k:0,loai:$('#lt').value});sv("k2025l",LI);render()}
 function exportExamJSON() {
     const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(LI, null, 2));
@@ -608,6 +888,11 @@ function loadSampleData() {
     sv("k2025l", deadlines);
     LI = deadlines;
     buildC();
+	if (!STORAGE_OK) {
+		showStorageWarning(
+			"Không thể sử dụng bộ nhớ cục bộ. Dữ liệu thay đổi có thể không được lưu sau khi đóng trang."
+		);
+	}
     render();
 }
 
